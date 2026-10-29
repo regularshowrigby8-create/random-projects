@@ -1,0 +1,6 @@
+# Cloudflare Pages (a Vercel alternative) — repo-root config.
+# Deploy with:  npm run deploy:cloudflare
+# or connect the repository in the Cloudflare dashboard with build output = sta1610
+name = "sta1610-exam-prep"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "sta1610"

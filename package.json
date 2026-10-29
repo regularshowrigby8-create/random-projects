@@ -1,0 +1,17 @@
+{
+  "name": "random-projects",
+  "version": "1.0.0",
+  "private": true,
+  "description": "STA1610 exam-prep site plus its self-hosted, dependency-free static deploy target",
+  "scripts": {
+    "start": "node sta1610/server.js",
+    "serve": "node sta1610/server.js",
+    "health": "curl -s http://127.0.0.1:8080/healthz",
+    "deploy:netlify": "npx --yes netlify-cli deploy --prod --dir=sta1610",
+    "deploy:cloudflare": "npx --yes wrangler pages deploy sta1610 --project-name=sta1610-exam-prep",
+    "deploy:surge": "npx --yes surge ./sta1610 sta1610-exam-prep.surge.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

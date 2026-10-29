@@ -39,13 +39,14 @@ browser (`localStorage`) — nothing leaves the device.
 ## Run locally
 
 ```bash
-cd sta1610
-python3 -m http.server 8080
-# open http://localhost:8080
+npm start                       # from the repository root
+# or without Node:
+python3 -m http.server 8080 --directory sta1610
 ```
 
 ## Deploy
 
-The folder is a ready-made static site. On Vercel: import the repository,
-set **Root Directory** to `sta1610`, leave the framework preset on *Other*
-and build/output directories empty.
+The folder is the publish directory. The repo ships its own static host
+([`server.js`](./server.js)) with gzip, ETag caching and a `/healthz` endpoint,
+plus configs for Netlify, Cloudflare Pages, Render, Docker/Fly and Surge.
+Full instructions: [../DEPLOY.md](../DEPLOY.md).

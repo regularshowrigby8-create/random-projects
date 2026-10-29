@@ -1,0 +1,16 @@
+# Render Blueprint (a Vercel alternative) — deploy this repo as a web service.
+# Render reads render.yaml from the repository root automatically.
+services:
+  - type: web
+    name: sta1610-exam-prep
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: ""
+    startCommand: node sta1610/server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: HOST
+        value: 0.0.0.0

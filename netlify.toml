@@ -1,0 +1,35 @@
+# Netlify (a Vercel alternative) — repo-root config, zero dashboard setup.
+# Netlify picks this file up automatically when the repository is imported.
+[build]
+  publish = "sta1610"
+  command = ""
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The site uses #hash navigation, so deep paths all resolve to the app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
