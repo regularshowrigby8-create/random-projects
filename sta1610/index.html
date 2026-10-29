@@ -5614,27 +5614,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* --------------------------------------------------- counters + progress */
   function animateStats() {
+    /* these are factual counts (48 entries, 23 guides, 3 gap fillers), so they
+       are never animated: a mid-animation snapshot must not read "0" */
     $$('.exam-stat strong').forEach(function (el) {
       if (el.getAttribute('data-counted')) return;
-      var target = parseInt((el.textContent || '').replace(/[^\d]/g, ''), 10);
-      if (isNaN(target)) return;
+      var value = parseInt((el.textContent || '').replace(/[^\d]/g, ''), 10);
+      if (isNaN(value)) return;
       el.setAttribute('data-counted', '1');
-      /* the committed markup already holds the true value: only animate as an
-         enhancement, so throttled rAF (background tab, print, proxy iframes)
-         can never leave a stale number on screen */
-      if (reduce.matches || d.hidden) { el.textContent = String(target); return; }
-      var finalised = false;
-      function finalise() { if (!finalised) { finalised = true; el.textContent = String(target); } }
-      var start = null;
-      setTimeout(finalise, 1500);
-      requestAnimationFrame(function step(ts) {
-        if (finalised) return;
-        if (start === null) start = ts;
-        var p = Math.min(1, (ts - start) / 950);
-        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
-        if (p < 1) requestAnimationFrame(step);
-        else finalise();
-      });
+      el.textContent = String(value);
     });
   }
 

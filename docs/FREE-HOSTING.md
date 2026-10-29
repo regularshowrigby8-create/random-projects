@@ -64,9 +64,11 @@ Both npm servers were installed and run here: `/` **and** deep paths returned
 * **`localStorage` fallback** — a tiny in-memory shim runs before anything else
   if the browser blocks storage (sandboxed/proxied iframes, strict privacy
   modes). Without it, the original `updateProgress()` would throw on navigation.
-* **Counter fallback** — the animated stat counters now always settle on their
-  real value after 1.5 s, so a throttled `requestAnimationFrame` (background tab,
-  print, iframe proxy) can no longer leave "0" on screen.
+* **Factual counters are no longer animated** — the hero numbers (*48 entries,
+  23 guides, 3 gap fillers*) are claims, not decoration. A counting animation
+  meant a snapshot taken mid-animation (crawler, print view, proxy harvest) read
+  "0". They now always render their committed value. Verified through
+  htmlpreview: 48 / 23 / 3 render correctly with no JavaScript animation.
 * Verified in a simulated blocked-storage browser: navigation, theme toggle,
   quick find, calculators and revision ticks all still work, **0 console errors**.
 
