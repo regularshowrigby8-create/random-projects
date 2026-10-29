@@ -111,6 +111,34 @@ const server = http.createServer((req, res) => {
     });
   }
 
+  /* explicit download endpoint: /download/<file> serves the same bytes as an
+     attachment so the browser saves a .html file instead of rendering the
+     source (raw.githubusercontent.com labels .html as text/plain). */
+  const downloadMatch = url.split('?')[0].match(/^\/download\/([A-Za-z0-9._-]+)$/);
+  if (downloadMatch) {
+    const name = downloadMatch[1];
+    const allowed = ['sta1610-exam-prep.html', 'sta1610-exam-prep.zip', 'index.html'];
+    if (allowed.indexOf(name) === -1) {
+      return send(res, 404, 'Not found', { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+    }
+    const candidates = [path.join(ROOT, name), path.join(ROOT, '..', name)];
+    const target = candidates.filter(function (c) {
+      return fs.existsSync(c) && fs.statSync(c).isFile();
+    })[0];
+    if (!target) {
+      return send(res, 404, 'Not found', { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+    }
+    const body = fs.readFileSync(target);
+    const type = name.endsWith('.zip') ? 'application/zip' : 'text/html; charset=utf-8';
+    return send(res, 200, req.method === 'HEAD' ? undefined : body, {
+      'Content-Type': type,
+      'Content-Disposition': 'attachment; filename="' + name + '"',
+      'Content-Length': body.length,
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff'
+    });
+  }
+
   const file = resolveTarget(url);
   if (!file) {
     return send(res, 404, 'Not found', { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });

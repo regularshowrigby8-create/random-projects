@@ -77,7 +77,22 @@ https://app.netlify.com/start/deploy?repository=https://github.com/regularshowri
 No build step is required anywhere — publish directory is `sta1610` and there
 is nothing to install.
 
-## 3. Docker
+## 3. Downloading the single-file site
+
+GitHub labels `.html` repo files as `text/plain`, so a raw link *displays* the
+source instead of saving a file. Working options:
+
+| Link | Behaviour |
+| --- | --- |
+| `<host>/download/sta1610-exam-prep.html` | Served by `sta1610/server.js` with `Content-Disposition: attachment` — saves as a real `.html` file in one click |
+| `https://codeload.github.com/<owner>/<repo>/zip/refs/heads/<branch>` | GitHub sends `attachment` — downloads a zip of the repo, which contains the HTML |
+| GitHub file page → **Download raw file** button | Saves the `.html` correctly |
+| Raw URL + right-click → **Save link as…** | Saves the `.html` correctly |
+
+The `/download/<file>` route is allow-listed to `sta1610-exam-prep.html`,
+`sta1610-exam-prep.zip` and `index.html`; anything else returns 404.
+
+## 4. Docker
 
 ```bash
 docker build -t sta1610 .
