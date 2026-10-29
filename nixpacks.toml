@@ -1,0 +1,13 @@
+# Nixpacks build plan — used automatically by Coolify, Dokploy and Railway
+# when they detect a Node project without a Dockerfile override.
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = []
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = "node sta1610/server.js"

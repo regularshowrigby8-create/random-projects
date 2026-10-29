@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log*
+.git
+.gitignore
+.github
+docs
+*.md
+!sta1610/README.md
+.DS_Store
+coverage
+dist
+out

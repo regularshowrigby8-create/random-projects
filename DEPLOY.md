@@ -6,12 +6,33 @@ anywhere, including Docker and any Vercel alternative), or a one-command push
 to a third-party static host.
 
 ```
-server.js            sta1610/server.js   → dependency-free static host (the deploy target)
-package.json         npm start / deploy:netlify / deploy:cloudflare / deploy:surge
-netlify.toml         Netlify    — publish dir + headers + SPA fallback
-wrangler.toml        Cloudflare Pages — build output dir
-render.yaml          Render     — web service + health check
-Dockerfile           any container host (Fly, Railway, a VPS, Kubernetes)
+sta1610/server.js     dependency-free static host (the default deploy target)
+package.json          start / start:serve / start:sirv / docker:* / deploy:*
+Dockerfile            any container host (Fly, Railway, a VPS, Kubernetes)
+docker-compose.yml    Coolify, Dokploy, Portainer, plain Docker (Traefik labels set)
+nixpacks.toml         Nixpacks plan for Coolify / Dokploy / Railway autodetect
+captain-definition    CapRover (schemaVersion 2 → ./Dockerfile)
+Procfile              Dokku / Railway / Heroku process definition
+app.json              Dokku / Heroku app metadata + /healthz health check
+config/deploy.yml     Kamal 2 (fill in server IP, registry, domain)
+netlify.toml          Netlify    — publish dir + headers + SPA fallback
+wrangler.toml         Cloudflare Pages — build output dir
+render.yaml           Render     — web service + health check
+```
+
+### Self-hosted PaaS competitors
+
+Research notes on Coolify, Dokploy, Dokku, CapRover, Kamal, Kubero, ZaneOps and
+Zeabur — star counts, licences, resource needs, and exactly which repo file each
+one consumes — are in **[docs/DEPLOY-ALTERNATIVES.md](./docs/DEPLOY-ALTERNATIVES.md)**.
+
+```bash
+npm run docker:up      # build + run via docker-compose (Coolify/Dokploy compatible)
+npm run deploy:caprover  # CapRover CLI (needs `caprover login` once)
+npm run deploy:kamal     # Kamal (needs `gem install kamal` + config/deploy.yml filled in)
+npm run deploy:dokku     # git push to your dokku remote
+npm run start:serve      # Vercel's own `serve` static server, SPA fallback
+npm run start:sirv       # lukeed/sirv, smallest static server
 ```
 
 ## 1. Built-in host (default, zero dependencies)

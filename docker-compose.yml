@@ -1,0 +1,31 @@
+# docker-compose stack — picked up by Coolify, Dokploy, Portainer, plain Docker.
+#   docker compose up -d --build   →  http://localhost:8080
+services:
+  sta1610:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sta1610-exam-prep:latest
+    container_name: sta1610-exam-prep
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+      PORT: "8080"
+      HOST: 0.0.0.0
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:8080/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    labels:
+      # Coolify: attach a domain in the UI, or set these.
+      # Dokploy: add the domain in the UI (Traefik routes it automatically).
+      traefik.enable: "true"
+      traefik.http.services.sta1610.loadbalancer.server.port: "8080"

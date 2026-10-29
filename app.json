@@ -1,0 +1,31 @@
+{
+  "name": "sta1610-exam-prep",
+  "description": "STA1610 statistics exam-prep workspace: 23 topic guides, past-paper solutions, calculators, formula sheet.",
+  "repository": "https://github.com/regularshowrigby8-create/random-projects",
+  "logo": "",
+  "keywords": ["sta1610", "statistics", "exam-prep", "unisa", "static-site"],
+  "env": {
+    "NODE_ENV": {
+      "description": "Runtime mode for the bundled static host.",
+      "value": "production",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "healthchecks": {
+    "web": [
+      {
+        "type": "startup",
+        "name": "static host",
+        "path": "/healthz",
+        "attempts": 10
+      }
+    ]
+  },
+  "buildpacks": [],
+  "stack": "container"
+}

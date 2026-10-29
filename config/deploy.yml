@@ -1,0 +1,35 @@
+# Kamal 2 (basecamp/kamal) — deploy this repo to any VPS you own.
+#   1. install:  gem install kamal
+#   2. edit the four TODO values below (server IP, registry, domain)
+#   3. export KAMAL_REGISTRY_PASSWORD=...   then:  kamal setup
+service: sta1610-exam-prep
+
+image: TODO-your-dockerhub-user/sta1610-exam-prep
+
+servers:
+  web:
+    - TODO.YOUR.SERVER.IP          # e.g. 203.0.113.10
+
+proxy:
+  host: TODO.sta1610.example.com   # must resolve to the server above
+  app_port: 8080                   # sta1610/server.js listens on $PORT, default 8080
+  ssl: true                        # automatic Let's Encrypt
+  healthcheck:
+    path: /healthz
+    interval: 20
+
+registry:
+  username: TODO-your-dockerhub-user
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+  dockerfile: Dockerfile
+
+env:
+  clear:
+    PORT: "8080"
+    HOST: 0.0.0.0
+    NODE_ENV: production
+  secret: []

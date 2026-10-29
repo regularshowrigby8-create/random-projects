@@ -15,5 +15,10 @@ npm start        # serves sta1610/ on http://localhost:8080
 ```
 
 The repo carries its own deploy layer: a dependency-free Node static host
-(`sta1610/server.js`) plus ready configs for Netlify, Cloudflare Pages, Render,
-Fly/Docker and Surge. See [DEPLOY.md](./DEPLOY.md).
+(`sta1610/server.js`) plus ready configs for Coolify, Dokploy, Dokku, CapRover,
+Kamal, Docker, Netlify, Cloudflare Pages, Render and Surge.
+
+* [DEPLOY.md](./DEPLOY.md) — how to deploy, option by option
+* [docs/DEPLOY-ALTERNATIVES.md](./docs/DEPLOY-ALTERNATIVES.md) — research on the
+  GitHub projects that compete with Vercel, with stars, licences and what each
+  one needs from a repository

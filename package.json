@@ -1,12 +1,19 @@
 {
   "name": "random-projects",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "STA1610 exam-prep site plus its self-hosted, dependency-free static deploy target",
+  "description": "STA1610 exam-prep site plus its in-repo deploy layer (static host + configs for self-hosted PaaS platforms)",
   "scripts": {
     "start": "node sta1610/server.js",
     "serve": "node sta1610/server.js",
     "health": "curl -s http://127.0.0.1:8080/healthz",
+    "start:serve": "npx --yes serve@14 sta1610 -l 8080 --single --no-clipboard",
+    "start:sirv": "npx --yes sirv-cli@3 sta1610 -p 8080 --single --host 0.0.0.0",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "deploy:caprover": "npx --yes caprover deploy -a sta1610-exam-prep",
+    "deploy:kamal": "kamal setup",
+    "deploy:dokku": "git push dokku HEAD:main",
     "deploy:netlify": "npx --yes netlify-cli deploy --prod --dir=sta1610",
     "deploy:cloudflare": "npx --yes wrangler pages deploy sta1610 --project-name=sta1610-exam-prep",
     "deploy:surge": "npx --yes surge ./sta1610 sta1610-exam-prep.surge.sh"
