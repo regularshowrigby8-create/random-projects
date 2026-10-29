@@ -5619,23 +5619,22 @@ document.addEventListener('DOMContentLoaded', function() {
       var target = parseInt((el.textContent || '').replace(/[^\d]/g, ''), 10);
       if (isNaN(target)) return;
       el.setAttribute('data-counted', '1');
+      /* the committed markup already holds the true value: only animate as an
+         enhancement, so throttled rAF (background tab, print, proxy iframes)
+         can never leave a stale number on screen */
       if (reduce.matches || d.hidden) { el.textContent = String(target); return; }
-      var settled = false;
+      var finalised = false;
+      function finalise() { if (!finalised) { finalised = true; el.textContent = String(target); } }
       var start = null;
-      el.textContent = '0';
-      function settle() { if (!settled) { settled = true; el.textContent = String(target); } }
-      /* backgrounds, print views and proxied iframes may throttle rAF: never leave a 0 behind */
-      setTimeout(settle, 1500);
-      function step(ts) {
-        if (settled) return;
+      setTimeout(finalise, 1500);
+      requestAnimationFrame(function step(ts) {
+        if (finalised) return;
         if (start === null) start = ts;
         var p = Math.min(1, (ts - start) / 950);
-        var eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = String(Math.round(target * eased));
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
         if (p < 1) requestAnimationFrame(step);
-        else settle();
-      }
-      requestAnimationFrame(step);
+        else finalise();
+      });
     });
   }
 
