@@ -22,3 +22,9 @@ Kamal, Docker, Netlify, Cloudflare Pages, Render and Surge.
 * [docs/DEPLOY-ALTERNATIVES.md](./docs/DEPLOY-ALTERNATIVES.md) — research on the
   GitHub projects that compete with Vercel, with stars, licences and what each
   one needs from a repository
+* [docs/FREE-HOSTING.md](./docs/FREE-HOSTING.md) — niche free, zero-account
+  hosts that read a public repo, with what was actually verified
+
+```bash
+npm run urls     # print free zero-signup public URLs for the current commit
+```
