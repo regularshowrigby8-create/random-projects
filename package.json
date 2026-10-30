@@ -8,6 +8,7 @@
     "serve": "node sta1610/server.js",
     "health": "curl -s http://127.0.0.1:8080/healthz",
     "urls": "node scripts/free-urls.mjs",
+    "build:pdf": "python3 tools/build_pdf.py",
     "start:serve": "npx --yes serve@14 sta1610 -l 8080 --single --no-clipboard",
     "start:sirv": "npx --yes sirv-cli@3 sta1610 -p 8080 --single --host 0.0.0.0",
     "docker:up": "docker compose up -d --build",

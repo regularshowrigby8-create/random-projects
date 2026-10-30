@@ -85,12 +85,26 @@ source instead of saving a file. Working options:
 | Link | Behaviour |
 | --- | --- |
 | `<host>/download/sta1610-exam-prep.html` | Served by `sta1610/server.js` with `Content-Disposition: attachment` — saves as a real `.html` file in one click |
+| `<host>/download/sta1610-exam-prep.pdf` | The 116-page print edition (`application/pdf`, attachment) |
+| `<host>/download/sta1610-exam-prep-pdf.zip` | PDF + HTML + README bundle |
 | `https://codeload.github.com/<owner>/<repo>/zip/refs/heads/<branch>` | GitHub sends `attachment` — downloads a zip of the repo, which contains the HTML |
 | GitHub file page → **Download raw file** button | Saves the `.html` correctly |
 | Raw URL + right-click → **Save link as…** | Saves the `.html` correctly |
 
 The `/download/<file>` route is allow-listed to `sta1610-exam-prep.html`,
-`sta1610-exam-prep.zip` and `index.html`; anything else returns 404.
+`sta1610-exam-prep.pdf`, both zips and `index.html`; anything else returns 404.
+
+## 3b. Rebuilding the PDF
+
+```bash
+python3 -m pip install reportlab pypdf   # plus matplotlib for the DejaVu fonts
+python3 tools/build_pdf.py               # or: npm run build:pdf
+```
+
+`tools/build_pdf.py` parses the single HTML file, drops the interactive
+furniture, expands every collapsed solution, converts LaTeX to typeset Unicode,
+and lays the result out for A4 with a cover, a computed table of contents,
+155 PDF bookmarks, running headers and page numbers.
 
 ## 4. Docker
 

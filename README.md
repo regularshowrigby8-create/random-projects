@@ -26,5 +26,14 @@ Kamal, Docker, Netlify, Cloudflare Pages, Render and Surge.
   hosts that read a public repo, with what was actually verified
 
 ```bash
-npm run urls     # print free zero-signup public URLs for the current commit
+npm run urls      # print free zero-signup public URLs for the current commit
+npm run build:pdf # rebuild sta1610-exam-prep.pdf from the HTML
 ```
+
+## Downloads
+
+| File | What it is |
+| --- | --- |
+| `sta1610-exam-prep.pdf` | 116-page A4 revision guide — cover, clickable contents, 155 bookmarks, every solution expanded |
+| `sta1610-exam-prep.html` | the interactive single-file site |
+| `sta1610-exam-prep-pdf.zip` | PDF + HTML + README bundle |
